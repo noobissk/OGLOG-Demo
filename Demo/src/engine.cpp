@@ -7,7 +7,7 @@
 #include <sstream>
 #include <fstream>
 #include <service/asset_manager.h>
-#include <scene_system.h>
+#include <scene_init.h>
 
 
 
@@ -39,18 +39,20 @@ int Engine::startUp()
         
         std::cout << "[LOG] Awakening systems..." << std::endl;
         SystemManager::awake();
-
+        
         screen_color = Colors::program_default;
         glClearColor(screen_color.r, screen_color.g, screen_color.b, 1.0f);
-
+        
         std::cout << "[LOG] Starting main loop..." << std::endl;
+        
+        
+        SystemManager::start();
         while (!glfwWindowShouldClose(window))
         {
             glfwPollEvents();
 
             glClear(GL_COLOR_BUFFER_BIT);
 
-            std::cout << "[DEBUG] current scene: " << SystemManager::current_scene->name << std::endl;
             SystemManager::update();
 
             glfwSwapBuffers(window);

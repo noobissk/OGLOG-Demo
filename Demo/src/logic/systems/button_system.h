@@ -1,9 +1,11 @@
 #pragma once
+#include <string>
 #include <config_system.h>
 #include <config_component.h>
 
-class Parallax_S : public System {
+
+class Button_S : public System
+{
 public:
-    void start() override;
     void update() override;
 };

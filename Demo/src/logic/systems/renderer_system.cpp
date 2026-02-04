@@ -4,6 +4,7 @@
 #include <engine_variables.h>
 #include "materials/material_default.h"
 
+
 void SpriteRenderer_S::update() {
     if (!SystemManager::current_scene) return;
     int i = 0;
@@ -72,15 +73,16 @@ void SpriteRenderer_S::draw(Entity e, Transform_C& t, MeshRenderer_C& c)
         }
 
         mat->shader->use();
-
+        
         if (text_c->checkDirty())
-            text_c->rebuildMesh();
-
+        text_c->rebuildMesh();
+        
         if (!c.mesh) {
             std::cout << "[WARN] Text mesh is null\n";
             return;
         }
-
+        
+        mat->shader->setVec4("textColor", text_c->color);
         mat->shader->setMat4("model", t.worldMatrix);
         mat->shader->setMat4("view", view);
         mat->shader->setMat4("projection", projection);

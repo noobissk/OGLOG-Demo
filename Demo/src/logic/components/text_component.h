@@ -1,6 +1,7 @@
 #pragma once
 #include <logic/scene_manager.h>
 #include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 #include <string>
 #include <vector>
 #include <iostream>
@@ -37,6 +38,7 @@ public:
     std::shared_ptr<Font> font;
     TextAlign alignment;
     VerticalAlign v_alignment;
+    glm::vec4 color;
     float character_spacing;
     float line_spacing;
     

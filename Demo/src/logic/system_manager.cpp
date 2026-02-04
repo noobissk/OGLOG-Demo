@@ -11,7 +11,9 @@ std::vector<System*> SystemManager::systems = {
     new Time(),
     new Transform_S(),
     new Canvas_S(),
-    new SpriteRenderer_S()
+    new SpriteRenderer_S(),
+    new Button_S(),
+    new Parallax_S()
 };
 
 Scene* SystemManager::current_scene = nullptr;
@@ -42,6 +44,8 @@ void SystemManager::awake()
 
 void SystemManager::start()
 {
-    
+    for (System* sys : systems) {
+        sys->start();
+    }
 }
 

@@ -21,6 +21,7 @@ add_executable(oglog_engine
     src/logic/systems/transform_system.cpp
     src/logic/systems/system.cpp
     src/logic/systems/canvas_system.cpp
+    src/logic/systems/button_system.cpp
     src/util/mesh.cpp
     src/util/time.cpp
     src/util/texture.cpp
@@ -31,7 +32,8 @@ add_executable(oglog_engine
     src/materials/material_font.cpp
     src/materials/material_default.cpp
     src/shader.cpp
-    app/scene_system.cpp
+    app/scene_init.cpp
+    app/systems/paralax_system.cpp
 )
 
 target_include_directories(oglog_engine PRIVATE dependencies)

@@ -11,7 +11,4 @@ public:
     static std::array<std::unique_ptr<SceneSetup>, 2> scenes;
 
     static void initialize();
-
-    static void changeScene(int sceneID);
-    static void changeScene(const std::string& sceneName);
 };

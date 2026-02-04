@@ -11,6 +11,7 @@ using Asset = uint16_t;
 class MaterialDefault : public Material{
 public:
     Texture texture;
+    glm::vec4 color = glm::vec4(1.0f);
 
     MaterialDefault(Shader* _shader, Asset texture_asset);
     MaterialDefault(Shader* _shader, Texture _texture);
