@@ -7,3 +7,4 @@
 #include <logic/components/button_component.h>
 
 #include <components/paralax_component.h>
+#include <components/character_mood_component.h>

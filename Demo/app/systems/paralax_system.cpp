@@ -11,8 +11,8 @@ void Parallax_S::start() {
         glfwGetCursorPos(window, &mouseX, &mouseY);
     
         // Normalize mouse position to range [-1, 1]
-        float normMouseX = -((static_cast<float>(mouseX) / static_cast<float>(resolution.x) + 1.0f) * 2.0f);
-        float normMouseY = -((static_cast<float>(mouseY) / static_cast<float>(resolution.y) + 1.0f) * 2.0f);
+        float normMouseX = -((static_cast<float>(mouseX) / static_cast<float>(resolution.x) - 0.5f) * 2.0f);
+        float normMouseY = -((static_cast<float>(mouseY) / static_cast<float>(resolution.y) - 0.5f) * 2.0f);
     
         // Calculate parallax offset
         glm::vec3 targetOffset = glm::vec3(
@@ -28,7 +28,7 @@ void Parallax_S::update() {
     SystemManager::current_scene->forEach<Transform_C, Paralax_C>(
     [this](Entity e, Transform_C& transform_c, Paralax_C& paralax_c) {
 
-        if (!paralax_c.enabled) {
+        if (!paralax_c.is_enabled) {
             return; // Skip if parallax is disabled
         }
 
@@ -36,8 +36,8 @@ void Parallax_S::update() {
         glfwGetCursorPos(window, &mouseX, &mouseY);
 
         // Normalize mouse position to range [-1, 1]
-        float normMouseX = -((static_cast<float>(mouseX) / static_cast<float>(resolution.x) + 1.0f) * 2.0f);
-        float normMouseY = -((static_cast<float>(mouseY) / static_cast<float>(resolution.y) + 1.0f) * 2.0f);
+        float normMouseX = -((static_cast<float>(mouseX) / static_cast<float>(resolution.x) - 0.5f) * 2.0f);
+        float normMouseY = -((static_cast<float>(mouseY) / static_cast<float>(resolution.y) - 0.5f) * 2.0f);
 
         // Calculate parallax offset
         glm::vec3 targetOffset = glm::vec3(

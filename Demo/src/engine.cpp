@@ -47,6 +47,7 @@ int Engine::startUp()
         
         
         SystemManager::start();
+
         while (!glfwWindowShouldClose(window))
         {
             glfwPollEvents();

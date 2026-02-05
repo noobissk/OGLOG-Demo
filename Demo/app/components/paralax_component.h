@@ -5,7 +5,7 @@ class Paralax_C {
 public:
     glm::vec3 intensity;
     float smoothing = 0.6f;
-    bool enabled = true;
+    bool is_enabled = true;
 
     glm::vec3 currentOffset{0.0f};
 

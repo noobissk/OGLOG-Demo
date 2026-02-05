@@ -27,7 +27,7 @@ public:
         Entity char_e = scene->createEntity();
         auto& char_transform = scene->addComponent<Transform_C>(char_e, Transform_C(char_e));
         auto& char_renderer = scene->addComponent<MeshRenderer_C>(char_e, MeshRenderer_C(std::make_shared<MaterialDefault>(ShaderManager::get("sprite"), 1)));
-        auto& char_ui = scene->addComponent<UIElement_C>(char_e, UIElement_C(glm::vec2(1040.0f, 540.0f), glm::vec2(2080.0f, 1080.0f)));
+        auto& char_ui = scene->addComponent<UIElement_C>(char_e, UIElement_C(glm::vec2(960.0f, 540.0f), glm::vec2(2080.0f, 1080.0f)));
         char_ui.canvas = canvas_e;
         auto& char_paralax = scene->addComponent<Paralax_C>(char_e, Paralax_C(glm::vec3(0.05f, 0.01f, 0.0f)));
 

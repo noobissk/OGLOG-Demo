@@ -10,7 +10,9 @@ void SpriteRenderer_S::update() {
     int i = 0;
     SystemManager::current_scene->forEach<Transform_C, MeshRenderer_C>(
     [this](Entity e, Transform_C& transform_c, MeshRenderer_C& mesh_c) {
-        draw(e, transform_c, mesh_c);
+        std::cout << "[LOG] SpriteRenderer_S::update: Entity " << e << ", is_enabled: " << mesh_c.is_enabled << std::endl;
+        if (mesh_c.is_enabled)
+            draw(e, transform_c, mesh_c);
     });
 }
 
