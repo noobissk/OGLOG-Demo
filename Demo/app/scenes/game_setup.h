@@ -6,7 +6,15 @@
 #include <logic/scene_manager.h>
 
 class GameSetup : public SceneSetup {
-    inline void moodToRenderer(Mood_C* mood, int btn, MeshRenderer_C* happy_renderer, MeshRenderer_C* sad_renderer, MeshRenderer_C* angry_renderer) {
+    inline void moodToRenderer(
+        Mood_C* mood, int btn,
+        MeshRenderer_C* happy_renderer,
+        MeshRenderer_C* sad_renderer,
+        MeshRenderer_C* angry_renderer,
+        MeshRenderer_C* morning_renderer,
+        MeshRenderer_C* evening_renderer,
+        MeshRenderer_C* night_renderer
+    ) {
         switch (mood->mood) { // btns -> gift, talk, work
             case Mood_C::Mood::HAPPY:
                 if (btn == 0) {
@@ -43,6 +51,27 @@ class GameSetup : public SceneSetup {
                     angry_renderer->is_enabled = false;
                     sad_renderer->is_enabled = true;
                 }
+                break;
+        }
+        mood->time++;
+        switch (mood->time % 3) {
+            case 0: // Morning
+                morning_renderer->is_enabled = true;
+                evening_renderer->is_enabled = false;
+                night_renderer->is_enabled   = false;
+                std::cout << "Time set to MORNING" << std::endl;
+                break;
+            case 1: // Evening
+                morning_renderer->is_enabled = false;
+                evening_renderer->is_enabled = true;
+                night_renderer->is_enabled   = false;
+                std::cout << "Time set to EVENING" << std::endl;
+                break;
+            case 2: // Night
+                morning_renderer->is_enabled = false;
+                evening_renderer->is_enabled = false;
+                night_renderer->is_enabled   = true;
+                std::cout << "Time set to NIGHT" << std::endl;
                 break;
         }
     }
@@ -90,7 +119,7 @@ public:
         auto& happy_renderer = scene->addComponent<MeshRenderer_C>(happy_e, MeshRenderer_C(std::make_shared<MaterialDefault>(ShaderManager::get("sprite"), 9)));
         auto& happy_ui = scene->addComponent<UIElement_C>(happy_e, UIElement_C(glm::vec2(1040.0f, 540.0f), glm::vec2(2080.0f, 1080.0f)));
         happy_ui.canvas = canvas_e;
-        happy_renderer.is_enabled = false;
+        // happy_renderer.is_enabled = false;
         
         Entity sad_e = scene->createEntity();
         auto& sad_transform = scene->addComponent<Transform_C>(sad_e, Transform_C(sad_e));
@@ -142,13 +171,16 @@ public:
         Entity button_gift_e = scene->createEntity();
         auto& button_gift_transform = scene->addComponent<Transform_C>(button_gift_e, Transform_C(button_gift_e));
         auto& button_gift_renderer = scene->addComponent<MeshRenderer_C>(button_gift_e, MeshRenderer_C(std::make_shared<MaterialDefault>(ShaderManager::get("sprite"), 8)));
-        auto& button_gift_button = scene->addComponent<Button_C>(button_gift_e, Button_C(([this, scene, happy_e, sad_e, angry_e, mood_e] () {
+        auto& button_gift_button = scene->addComponent<Button_C>(button_gift_e, Button_C(([this, scene, happy_e, sad_e, angry_e, mood_e, morning_e, evening_e, night_e] () {
             auto* mood = &scene->getComponent<Mood_C>(mood_e);
             auto* happy_renderer = &scene->getComponent<MeshRenderer_C>(happy_e);
             auto* sad_renderer   = &scene->getComponent<MeshRenderer_C>(sad_e);
             auto* angry_renderer = &scene->getComponent<MeshRenderer_C>(angry_e);
+            auto* morning_renderer = &scene->getComponent<MeshRenderer_C>(morning_e);
+            auto* evening_renderer   = &scene->getComponent<MeshRenderer_C>(evening_e);
+            auto* night_renderer = &scene->getComponent<MeshRenderer_C>(night_e);
 
-            moodToRenderer(mood, 0, happy_renderer, sad_renderer, angry_renderer);
+            moodToRenderer(mood, 0, happy_renderer, sad_renderer, angry_renderer, morning_renderer, evening_renderer, night_renderer);
         })));
         auto& button_gift_ui = scene->addComponent<UIElement_C>(button_gift_e, UIElement_C(glm::vec2(1110.0f, 940.0f), glm::vec2(200.0f, 75.0f)));
         button_gift_ui.canvas = canvas_e;
@@ -172,13 +204,16 @@ public:
         Entity button_talk_e = scene->createEntity();
         auto& button_talk_transform = scene->addComponent<Transform_C>(button_talk_e, Transform_C(button_talk_e));
         auto& button_talk_renderer = scene->addComponent<MeshRenderer_C>(button_talk_e, MeshRenderer_C(std::make_shared<MaterialDefault>(ShaderManager::get("sprite"), 8)));
-        auto& button_talk_button = scene->addComponent<Button_C>(button_talk_e, Button_C(([this, scene, happy_e, sad_e, angry_e, mood_e] () {
+        auto& button_talk_button = scene->addComponent<Button_C>(button_talk_e, Button_C(([this, scene, happy_e, sad_e, angry_e, mood_e, morning_e, evening_e, night_e] () {
             auto* mood = &scene->getComponent<Mood_C>(mood_e);
             auto* happy_renderer = &scene->getComponent<MeshRenderer_C>(happy_e);
             auto* sad_renderer   = &scene->getComponent<MeshRenderer_C>(sad_e);
             auto* angry_renderer = &scene->getComponent<MeshRenderer_C>(angry_e);
+            auto* morning_renderer = &scene->getComponent<MeshRenderer_C>(morning_e);
+            auto* evening_renderer   = &scene->getComponent<MeshRenderer_C>(evening_e);
+            auto* night_renderer = &scene->getComponent<MeshRenderer_C>(night_e);
 
-            moodToRenderer(mood, 1, happy_renderer, sad_renderer, angry_renderer);
+            moodToRenderer(mood, 1, happy_renderer, sad_renderer, angry_renderer, morning_renderer, evening_renderer, night_renderer);
         })));
         auto& button_talk_ui = scene->addComponent<UIElement_C>(button_talk_e, UIElement_C(glm::vec2(810.0f, 940.0f), glm::vec2(200.0f, 75.0f)));
         button_talk_ui.canvas = canvas_e;
@@ -202,13 +237,16 @@ public:
         Entity button_work_e = scene->createEntity();
         auto& button_work_transform = scene->addComponent<Transform_C>(button_work_e, Transform_C(button_work_e));
         auto& button_work_renderer = scene->addComponent<MeshRenderer_C>(button_work_e, MeshRenderer_C(std::make_shared<MaterialDefault>(ShaderManager::get("sprite"), 8)));
-        auto& button_work_button = scene->addComponent<Button_C>(button_work_e, Button_C(([this, scene, happy_e, sad_e, angry_e, mood_e] () {
+        auto& button_work_button = scene->addComponent<Button_C>(button_work_e, Button_C(([this, scene, happy_e, sad_e, angry_e, mood_e, morning_e, evening_e, night_e] () {
             auto* mood = &scene->getComponent<Mood_C>(mood_e);
             auto* happy_renderer = &scene->getComponent<MeshRenderer_C>(happy_e);
             auto* sad_renderer   = &scene->getComponent<MeshRenderer_C>(sad_e);
             auto* angry_renderer = &scene->getComponent<MeshRenderer_C>(angry_e);
+            auto* morning_renderer = &scene->getComponent<MeshRenderer_C>(morning_e);
+            auto* evening_renderer   = &scene->getComponent<MeshRenderer_C>(evening_e);
+            auto* night_renderer = &scene->getComponent<MeshRenderer_C>(night_e);
 
-            moodToRenderer(mood, 2, happy_renderer, sad_renderer, angry_renderer);
+            moodToRenderer(mood, 2, happy_renderer, sad_renderer, angry_renderer, morning_renderer, evening_renderer, night_renderer);
         })));
         auto& button_work_ui = scene->addComponent<UIElement_C>(button_work_e, UIElement_C(glm::vec2(510.0f, 940.0f), glm::vec2(200.0f, 75.0f)));
         button_work_ui.canvas = canvas_e;

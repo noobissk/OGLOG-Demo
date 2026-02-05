@@ -4,6 +4,7 @@
 
 class Mood_C {
 public:
+    int time = 0;
     enum Mood {
         HAPPY,
         ANGRY,
