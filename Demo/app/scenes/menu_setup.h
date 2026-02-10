@@ -4,6 +4,11 @@
 #include <config_component.h>
 #include <iostream>
 #include <logic/scene_manager.h>
+#include <windows.h>
+#include <mmsystem.h>
+
+
+#pragma comment(lib, "winmm.lib")
 
 class MenuSetup : public SceneSetup {
 public:
@@ -13,6 +18,12 @@ public:
     inline void initialize() override {
         SceneManager::createScene("Menu");
         auto* scene = &SceneManager::getSceneByName("Menu");
+
+        PlaySoundW(
+            AssetManager::assetToPath(17).c_str(),
+            NULL,
+            SND_FILENAME | SND_ASYNC | SND_LOOP
+        );
 
         Entity canvas_e = scene->createEntity();
         auto& canvas_transform = scene->addComponent<Transform_C>(canvas_e, Transform_C(canvas_e));
