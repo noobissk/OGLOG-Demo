@@ -11,8 +11,6 @@ public:
 
     // std::vector<System> systems;
 
-    static void initialize();
-
     static void awake();
 
     static void start();

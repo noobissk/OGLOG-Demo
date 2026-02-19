@@ -77,10 +77,15 @@ public:
         })));
         auto& button_exit_ui = scene->addComponent<UIElement_C>(button_exit_e, UIElement_C(glm::vec2(960.0f, 760.0f), glm::vec2(400.0f, 150.0f)));
         button_exit_ui.canvas = canvas_e;
+
         Entity text_button_exit_e = scene->createEntity();
 
         auto& text_button_exit_transform = scene->addComponent<Transform_C>(text_button_exit_e, Transform_C(text_button_exit_e));
-        auto& text_button_exit_renderer = scene->addComponent<MeshRenderer_C>(text_button_exit_e, MeshRenderer_C(std::make_shared<MaterialFont>(ShaderManager::get("font"), 20, std::vector<Asset>{14, 33, 18, 19})));
+        auto& text_button_exit_renderer = scene->addComponent<MeshRenderer_C>(text_button_exit_e, MeshRenderer_C(std::make_shared<MaterialFont>(
+            ShaderManager::get("font"),
+            20,
+            std::vector<Asset>{14, 33, 18, 19}
+        )));
         auto mat_font_exit = std::dynamic_pointer_cast<MaterialFont>(text_button_exit_renderer.material);
         auto& text_button_exit_text = scene->addComponent<Text_C>(text_button_exit_e, Text_C(text_button_exit_e, mat_font_exit->font));
         text_button_exit_text.text = "Exit";

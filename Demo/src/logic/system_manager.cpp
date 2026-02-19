@@ -18,13 +18,6 @@ std::vector<System*> SystemManager::systems = {
 
 Scene* SystemManager::current_scene = nullptr;
 
-void SystemManager::initialize()
-{
-    for (int i = 1; i < static_cast<int>(systems.size()); ++i) {
-        systems[i]->awake();
-    }
-}
-
 void SystemManager::update()
 {
     if (!systems.empty()) systems[0]->update();

@@ -34,8 +34,8 @@ int Engine::startUp()
 
         SceneController_S::initialize();
 
-        std::cout << "[LOG] Initializing systems..." << std::endl;
-        SystemManager::initialize();
+        // std::cout << "[LOG] Initializing systems..." << std::endl;
+        // SystemManager::initialize();
         
         std::cout << "[LOG] Awakening systems..." << std::endl;
         SystemManager::awake();
@@ -44,8 +44,6 @@ int Engine::startUp()
         glClearColor(screen_color.r, screen_color.g, screen_color.b, 1.0f);
         
         std::cout << "[LOG] Starting main loop..." << std::endl;
-        
-        
         SystemManager::start();
 
         while (!glfwWindowShouldClose(window))
