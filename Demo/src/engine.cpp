@@ -34,9 +34,6 @@ int Engine::startUp()
 
         SceneController_S::initialize();
 
-        // std::cout << "[LOG] Initializing systems..." << std::endl;
-        // SystemManager::initialize();
-        
         std::cout << "[LOG] Awakening systems..." << std::endl;
         SystemManager::awake();
         

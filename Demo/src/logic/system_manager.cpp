@@ -27,7 +27,6 @@ void SystemManager::update()
     }
 }
 
-
 void SystemManager::awake()
 {
     for (System* sys : systems) {
